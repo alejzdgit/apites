@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load static %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+
+{% endblock extra_css %}
+
+{% block content %}
+{% if search_results %}
+<ul>
+    {% for result in search_results %}
+    <li>
+        <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
+        {% if result.search_description %}
+        {{ result.search_description }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% for article in articles_list  %}
+<div class="flex flex-col sm:flex-row my-5 mx-2 justify-center sm:mx-auto">
+    {% image article.image  max-320x200%}
+    <div class="flex flex-col mx-3 max-w-md">
+    <div class="text-bold text-xl">
+        {{article.title_article}}
+    </div>
+    <div class="flex flex-row items-center">
+      <i class="fa-solid fa-clock mr-2"></i> <span class="text-blue-400">{{article.creation}}</span>  
+      <i class="fa-solid fa-tags mx-2"></i>
+      {% for categoryArticle in article.categorys.all  %}
+      <span class="text-blue-400 ml-1">{{ categoryArticle.name }}</span>
+      {% endfor %}
+    </div>
+        <div class="flex">
+            {{article.short_description}}
+        </div>
+        <div class="flex mt-2">
+            <a href="{{article.urlButton}}" class=" bg-amber-500 text-white rounded-lg p-3 items-center text-center" >Leer mas <i class="fa-solid fa-angles-right"></i> </a>
+            
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+
+{% endblock content %}

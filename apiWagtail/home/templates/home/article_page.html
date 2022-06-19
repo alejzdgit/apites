@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load static %}
+
+{% block content %}
+<div class="flex flex-row  px-2 sm:px-5 justify-center mt-5">
+    <div class="flex flex-col items-center">
+        <div class="bg-amber-500 py-2 px-3">
+        <i class="fa-solid fa-angle-left  text-white"></i>
+        </div>
+        <div class="border-r-2 border-gray-500 h-full"></div>
+    </div>
+    <div class="flex flex-col my-5 ml-5 justify-center w-full sm:w-1/2">
+        <div class="text-bold text-2xl">
+            {{page.title_article}}
+        </div>
+        {% image page.image  max-1200x600  class="w-full" %}
+        <div class="flex flex-row items-center">
+          <i class="fa-solid fa-clock mr-2"></i> <span class="text-blue-400">{{page.creation}}</span>  
+          <i class="fa-solid fa-tags mx-2"></i>
+          {% for categoryArticle in page.categorys.all  %}
+          <span class="text-blue-400 ml-1">{{ categoryArticle }}</span>
+          {% endfor %}
+        </div>
+            <div class="flex">
+                {{ page.long_description | richtext }}
+            </div>
+    
+    </div>
+</div>
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+
+{% endblock content %}

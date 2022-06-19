@@ -1,0 +1,37 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load static %}
+    <div class="flex flex-col sm:flex-row w-full justify-around items-center px-12 mt-4">
+      {% image base.logo  max-320x200 class="pb-5" %}
+      {% image base.profileImage  width-400 class="rounded-full block sm:hidden mb-4" id="Tologin"%}
+      <div class="mt-1 flex flex-col justify-center w-max items-center ">
+      <form  action="{% url 'search' %}" method="get" id="formsSearch" class="w-full">
+        <label class="relative block">
+            <input
+                class="w-full bg-white placeholder:font-italitc border border-slate-300 rounded-full py-2 pl-3 pr-12 focus:outline-none"
+                id="inputFormSearch"
+                name="query"{% if search_query %} value="{{ search_query }}"{% endif %}
+                placeholder="Enter to search" type="text" />
+                <span class="absolute inset-y-1 right-1 flex items-center pl-2 pr-2 rounded-full bg-amber-500 ">
+                  <svg class="h-5 w-5 fill-white" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30"
+                      height="30" viewBox="0 0 30 30">
+                      <path
+                          d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z">
+                      </path>
+                  </svg>
+              </span>
+           </input>
+        </label>
+    </form>
+      <div class="flex flex-wrap sm:flex-row sm:space-x-12 w-max sm:w-max space-x-5 justify-center">
+        {{nav_categorys.get_url}}
+      {% for category in nav_categorys %}
+      <a href="{{ category.get_url }}" class="mt-4 text-center text-2xl  text-bold {% if  page.slug ==  category.slug %}  border-b-4 border-amber-500 {% endif %}">
+         {{ category }}
+      </a> 
+      {% endfor %}
+      </div>
+    </div>
+    {% image base.profileImage  width-400 class="rounded-full hidden sm:block pb-5" id="Tologin" onclick="login()" %}
+    </div>
+
